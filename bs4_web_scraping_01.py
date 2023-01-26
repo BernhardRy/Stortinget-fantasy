@@ -1,25 +1,25 @@
 from bs4 import BeautifulSoup
 import requests
-import re
+import json
+# import re
+
+o = open("politikere.json")
+passeringsregister = json.load(o)
 
 url = "https://www.vg.no/"
 
 result = requests.get(url)
 doc = BeautifulSoup(result.text, "html.parser")
 
-#tag = doc.find_all(text=re.compile("Kjerkol.*"))
-#tag = doc.find_all(["article"], class_="article")
-# parent = prices[0].parent
-
-# print(doc.prettify())
-
 tags = doc.find_all(['a'], href=True)
 
 for i in tags:
-    if "https" in i["href"]:
-        url = i["href"]
+    for politiker in passeringsregister["representanter_oversikt"]["representanter_liste"]["representant"]:
+        if "https" in i["href"]:
+            url = i["href"]
+            
+            if ("/" + politiker["etternavn"].lower() + "-" in url.lower()) or ("-" + politiker["etternavn"].lower() + "-" in url.lower()):
+                print(f"{politiker['fornavn']} {politiker['etternavn']} URL: {url}")
 
-        if "kjerkol-" in url.lower():
-            print(url)
-
-# print(tags[0])
+            else:
+                pass

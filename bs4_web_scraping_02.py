@@ -8,4 +8,8 @@ doc = BeautifulSoup(result, "html.parser")
 tbody = doc.tbody
 trs = tbody.contents
 
-print(trs[0].parent.name)
+# print(trs[0].parent.name)
+for tr in trs:
+    for td in tr.contents:
+        print(td)
+        print()

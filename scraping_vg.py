@@ -19,6 +19,7 @@ artikler = []
 artikler_med_politikere = []
 artikler_dict = {}
 artikler_m_politikere_dict = {}
+og = []
 
 def finn_artikler_i_dag():
     main = doc.find('section', class_='hyperion-css-1jxrrtc')
@@ -35,12 +36,12 @@ def finn_artikler_i_dag():
                 artikler_dict[I] = {'url': f"https://www.vg.no{finn_attr_href}", 'publisert': time.text}
                 i += 1
                 
-                # print(f"ARTIKKEL: https://www.vg.no{finn_attr_href}")
-                # print(f"BLE PUBLISERT: {time.text}")
-                # print()
+                print(f"ARTIKKEL: https://www.vg.no{finn_attr_href}")
+                print(f"BLE PUBLISERT: {time.text}")
+                print()
 
 finn_artikler_i_dag()
-print(len(artikler))
+# print(len(artikler))
 
 def finn_alle_artikler_med_politikere():
     for artikkel in artikler:
@@ -57,9 +58,13 @@ def finn_alle_artikler_med_politikere():
                 print()
                 artikler_med_politikere.append("https://www.vg.no" + url)
                 artikler_m_politikere_dict[f"{politiker['fornavn']} {politiker['etternavn']}"] = {"parti": politiker["parti"]["id"], "url": url}
-                
+            
+            # a = doc.body.find_all(text=f"{politiker['fornavn']} {politiker['etternavn']}")
+            # og.append(a)
+            # print(f"{politiker['fornavn']} {politiker['etternavn']}")
 
-# finn_alle_artikler_med_politikere()
+finn_alle_artikler_med_politikere()
+
 # print_artikler_dict_fint = pprint.pformat(artikler_dict)
 # print(print_artikler_dict_fint)
 # print(artikler_m_politikere_dict)

@@ -19,7 +19,7 @@ artikler = []
 artikler_med_politikere = []
 artikler_dict = {}
 artikler_m_politikere_dict = {}
-og = []
+# og = []
 
 def finn_artikler_i_dag():
     main = doc.find('section', class_='hyperion-css-1jxrrtc')
@@ -36,16 +36,19 @@ def finn_artikler_i_dag():
                 artikler_dict[I] = {'url': f"https://www.vg.no{finn_attr_href}", 'publisert': time.text}
                 i += 1
                 
-                print(f"ARTIKKEL: https://www.vg.no{finn_attr_href}")
-                print(f"BLE PUBLISERT: {time.text}")
-                print()
+                # print(f"ARTIKKEL: https://www.vg.no{finn_attr_href}")
+                # print(f"BLE PUBLISERT: {time.text}")
+                # print()
 
 finn_artikler_i_dag()
 # print(len(artikler))
 
 def finn_alle_artikler_med_politikere():
     for artikkel in artikler:
-        url = "https://www.vg.no" + artikkel
+        if "https" in artikkel:
+            pass
+        else:
+            url = "https://www.vg.no" + artikkel
 
         result = requests.get(url)
         doc = BeautifulSoup(result.text, "html.parser")
